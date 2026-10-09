@@ -2,15 +2,22 @@
   <img src="public/app-icon.png" alt="Percolate Text Editor" width="144" />
 </p>
 
-## Disclaimer
-
-This is a hobby project, not a production-grade system, and is not maintained as one. The desktop agent can run local commands with the app's permissions; setting their working directory to the workspace does not sandbox them. Some approval modes run commands automatically. Use it only in a trusted local environment.
-
 # Percolate Text Editor
 
-Percolate Text Editor is an experimental desktop workspace for reading, editing, annotating, and discussing a local codebase with an AI agent. It combines a file explorer, editor and diff views, terminal, search, chat, and a highlight-based evidence system in one Electron application.
+> **Disclaimer**
+>
+> Percolate is a hobby project, provided as-is. It is not production-ready or security-hardened. The desktop agent and integrated terminal can run local commands with your user account's permissions, and some approval modes execute commands automatically. Use it only with trusted code and in a trusted local environment.
+>
+> The backend is still under development and has not yet been tested in a live environment.
+>
 
-This repository is a hobby project and a work in progress, published as-is for anyone who wants to run it locally or inspect the ideas. It is not a production-ready or security-hardened product. There are no packaged installers yet; the supported path for now is running the Electron development build from source.
+Percolate is an experimental desktop workspace for reading, editing, annotating,
+and discussing a local codebase with an AI agent. It combines a file explorer,
+code and diff views, terminal, search, chat, and a highlight-based evidence
+system in one Electron application.
+
+There are no packaged installers yet. The supported way to try Percolate is to
+run the Electron development build from source.
 
 ![Percolate workspace showing its code editor, annotation tools, context panel, agent conversation, and approval controls](./docs/images/percolate-workspace-preview.png)
 
@@ -42,13 +49,17 @@ On macOS, that usually means installing the Xcode Command Line Tools. Linux and 
 
 ```bash
 git clone <repository-url>
+cd percolate
 npm install
 npm run electron:dev:stub
 ```
 
-`npm install` also installs Electron and rebuilds the native dependencies for the Electron runtime.
+`npm install` downloads Electron and rebuilds the native dependencies for the
+Electron runtime.
 
-The application treats the Electron process's current directory as its workspace root. The npm development scripts run from `percolate-text-editor`, so the default setup opens the application project itself. Choosing a different workspace is not yet exposed as a supported command-line option or polished “open folder” flow; for now, changing it requires adjusting the local launch setup/code.
+Percolate currently uses the directory from which it is launched as its
+workspace. Running the commands above therefore opens this repository. A
+polished “open folder” flow is not yet available.
 
 ### Development modes
 

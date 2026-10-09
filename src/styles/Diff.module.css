@@ -1,0 +1,52 @@
+
+
+/* ViewBlock scroll host: this view owns its scroll (ownsScroll=true). The panes
+   scroll internally, so the root fills and clips. */
+.root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Thin toolbar holding the layout toggle. */
+.toolbar {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding: 2px 6px;
+    background: var(--content-editor-background);
+    border-bottom: 1px solid var(--ui-border);
+    align-items: center;
+    gap: 6px;
+}
+
+.proposalLabel { margin-right: auto; color: var(--ui-text-muted); font: 500 10.5px var(--font-sans); }
+.proposalActions { display: flex; gap: 4px; }
+.proposalActions button { padding: 2px 7px; border: 1px solid var(--ui-border); border-radius: 4px; background: var(--ui-surface-raised); color: var(--ui-text-muted); font: 500 10.5px var(--font-sans); cursor: pointer; }
+.proposalActions button:hover { background: var(--ui-surface-hover); color: var(--ui-text); }
+.proposalActions .proposalApprove { border-color: var(--ui-accent); background: var(--ui-accent); color: var(--ui-on-accent); }
+
+.layoutToggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    border: 1px solid var(--ui-border);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--ui-text-muted);
+    cursor: pointer;
+}
+.layoutToggle:hover {
+    background: var(--ui-surface-raised);
+    color: var(--ui-text);
+}
+
+/* Fills the remaining height below the toolbar; the SplitPaneFrame lays out inside. */
+.panes {
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+}

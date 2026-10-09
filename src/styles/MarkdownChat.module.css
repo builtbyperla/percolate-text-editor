@@ -1,0 +1,147 @@
+
+
+.chat {
+    /* Matches the chat bubble, so markdown reads as part of the reply. */
+    font-size: var(--sans-default-size);
+    line-height: 1.6;
+    color: var(--ui-text);
+}
+
+/* BLOCK RHYTHM. Tight: a reply is one thought, so paragraphs sit close together. */
+.chat p,
+.chat ul,
+.chat ol,
+.chat blockquote,
+.chat table,
+.chat pre {
+    margin: 0 0 0.5em;
+}
+
+/* The last block sits flush against the row's own padding. */
+.chat > :last-child {
+    margin-bottom: 0;
+}
+
+/* HEADINGS. Weight carries them, not size — a document scale dwarfs a 12px body and
+   reads as a section break in the middle of a conversation. */
+.chat h1,
+.chat h2,
+.chat h3,
+.chat h4,
+.chat h5,
+.chat h6 {
+    font-size: 1em;
+    font-weight: 650;
+    margin: 0.8em 0 0.3em;
+    line-height: 1.4;
+}
+
+.chat h1 {
+    font-size: 1.1em;
+}
+
+.chat h2 {
+    font-size: 1.05em;
+}
+
+/* The first heading of a reply has nothing above it to separate from. */
+.chat > :first-child {
+    margin-top: 0;
+}
+
+.chat ul,
+.chat ol {
+    list-style: none;
+    padding-left: 0;
+}
+
+/* Block text keeps its rendered newlines and leading indent visible: both are counted
+   characters, so they must render for range.toString() to match the flat model. */
+.chat p,
+.chat li,
+.chat td,
+.chat h1, .chat h2, .chat h3,
+.chat h4, .chat h5, .chat h6 {
+    white-space: pre-wrap;
+}
+
+/* BLOCKQUOTE — a quiet left bar. The bar is CSS: a counted '> ' would shift every
+   downstream annotation offset. */
+.chat blockquote {
+    border-left: 3px solid var(--ui-border-strong);
+    padding: 0 0 0 0.8em;
+    color: var(--ui-text-muted);
+    font-style: italic;
+    margin: 0.4em 0;
+}
+
+/* CODE. Same restrained fill as the old sheet — enough to separate the block, not
+   enough to read as a card. */
+.chat pre {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: color-mix(in srgb, var(--ui-text) 5%, transparent);
+    border-radius: 4px;
+    padding: 0.6em 0.8em;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+.chat code {
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+    background: color-mix(in srgb, var(--ui-text) 5%, transparent);
+    border-radius: 3px;
+    padding: 0 3px;
+}
+
+/* A fence's inner <code> must not double the wrapper's fill or padding. */
+.chat pre code {
+    background: none;
+    padding: 0;
+    font-size: 1em;
+}
+
+/* TABLE. Hairline borders, collapsed, sized to content — the old look. */
+.chat table {
+    border-collapse: collapse;
+    width: max-content;
+    max-width: 100%;
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0.4em 0;
+}
+
+.chat td,
+.chat th {
+    padding: 0.35em 0.7em;
+    border-right: 1px solid var(--ui-border);
+    border-bottom: 1px solid var(--ui-border);
+    text-align: left;
+}
+
+.chat tr:last-child td,
+.chat tr:last-child th {
+    border-bottom: none;
+}
+
+.chat td:last-child,
+.chat th:last-child {
+    border-right: none;
+}
+
+.chat hr {
+    border: 0;
+    border-top: 1px solid var(--ui-border-strong);
+    height: 0;
+    margin: 0.6em 0;
+}
+
+/* A highlight inside a code block. The block's own grey fill would swallow a flat
+   tint, so only the PAINT differs here — the highlight mechanism is unchanged. */
+.chat pre :global(.hl) {
+    background-color: color-mix(in srgb, var(--ui-success) 28%, transparent);
+    outline: 1px solid color-mix(in srgb, var(--ui-success) 55%, transparent);
+    outline-offset: -1px;
+}

@@ -1,0 +1,55 @@
+
+ContextItem
+    note; Accessor, Setter, owner sets when it changes?
+    text; 
+    // origin: ContextOwner; no direct tiebacks to source
+    metadata: { source, id }
+    included: true
+    
+
+SelectionInterface: component + highlight level (render level too)
+    isSelected()
+
+    ties back to context item
+
+NoteInputFrame: component + highlight level
+    handles selection
+    handles comment object
+
+
+ContextOwner: parent class interface
+    source
+
+ContextRegistry
+    owns the context item as a registry
+
+NoteInputManager
+     owns the NoteInputFrame interaction pattern similar to currnet impl
+
+
+// ignore below this
+Editor owner highlights
+    does some calculations
+    registers context item
+    opens annotation frame 
+
+Plaintext owner highlights
+    does some calculations
+    registers context item
+    still has to register locally, its just that the registry can trigger 
+        to update
+    opens annotation frame
+        checks with NoteInputManager
+
+Owner selects something
+
+
+What should registry look like?
+Create ->
+    How are we initializing multiple highlights
+    Also vs when its just the localized highlight creation
+    Should store metadata, not great to refresh ALL highlights
+    newSeg added kind of signal? each subscribes to the owner
+        but then that's kind of what happens when it loads 
+        vs when its in editor mode
+        vs just plain text versions

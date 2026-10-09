@@ -1,0 +1,340 @@
+/* SCROLLBAR COLORS */
+
+/* TEXT INNER AND LINE HIGHLIGHTS */
+
+.annotatorWrapper {
+    padding: 4px 0 calc(23px + 60vh) 6px;
+}
+
+.textView {
+
+    position: relative;
+}
+
+.textView :global(.annotator-syntax-0) { color: var(--annotator-syntax-0); }
+.textView :global(.annotator-syntax-1) { color: var(--annotator-syntax-1); }
+.textView :global(.annotator-syntax-2) { color: var(--annotator-syntax-2); }
+.textView :global(.annotator-syntax-3) { color: var(--annotator-syntax-3); }
+.textView :global(.annotator-syntax-4) { color: var(--annotator-syntax-4); }
+.textView :global(.annotator-syntax-5) { color: var(--annotator-syntax-5); }
+.textView :global(.annotator-syntax-6) { color: var(--annotator-syntax-6); }
+.textView :global(.annotator-syntax-7) { color: var(--annotator-syntax-7); }
+.textView :global(.annotator-syntax-8) { color: var(--annotator-syntax-8); }
+.textView :global(.annotator-syntax-9) { color: var(--annotator-syntax-9); }
+.textView :global(.annotator-syntax-10) { color: var(--annotator-syntax-10); }
+.textView :global(.annotator-syntax-11) { color: var(--annotator-syntax-11); }
+.textView :global(.annotator-syntax-12) { color: var(--annotator-syntax-12); }
+.textView :global(.annotator-syntax-13) { color: var(--annotator-syntax-13); }
+.textView :global(.annotator-syntax-14) { color: var(--annotator-syntax-14); }
+
+.textView[data-linemode="false"] {
+    /* cursor: url('../assets/annotator-text-plus-cursor.svg') 10 17, text; */
+    cursor: default;
+}
+
+.textView[data-linemode="true"] {
+    cursor: default;
+}
+
+.line {
+    display: block;
+    white-space: pre;
+    min-height: var(--line-height);
+}
+
+.foldPlaceholder {
+    height: 16px;
+    margin: 0 3px;
+    padding: 0 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    vertical-align: 1px;
+    color: #4f6f91;
+    background: rgba(64, 123, 186, 0.08);
+    border: 1px solid rgba(64, 123, 186, 0.2);
+    border-radius: 3px;
+    font: inherit;
+    line-height: 14px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.foldPlaceholder:hover {
+    color: #2f628f;
+    background: rgba(64, 123, 186, 0.14);
+    border-color: rgba(64, 123, 186, 0.34);
+}
+
+.foldPlaceholder:focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 1px;
+}
+
+.foldPlaceholderLabel {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.01em;
+}
+
+.lineDragOverlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    background-color: var(--content-annotation-drag);
+}
+
+.lineHoverOverlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    background-color: var(--content-annotation-hover);
+}
+
+.diffSpacer {
+    display: block;
+    width: 100%;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* BASE PARENT READ FRAME */
+
+.readFrame {
+    position: relative;
+    /* --editor-bg is set inline per-frame from the active theme, so the frame
+       holding the ruler + view paints the same background as the editor. */
+    background-color: var(--editor-bg);
+    white-space: pre;
+    width: 100%;
+    height: 100%;
+
+    overflow: auto;
+
+    display: grid;
+    grid-template-columns: min-content 1fr;
+}
+
+.readFrame[data-editmode="true"] {
+    background-color: var(--content-editor-background);
+}
+.readFrame[data-editmode="false"] {
+    background-color: var(--content-annotation-background);
+}
+
+.ruler {
+    /* To match top padding for CodeMirror6 */
+    padding-top: 4px; 
+    display: flex;
+    flex-direction: row;
+    min-width: 56px;
+    cursor: pointer;
+    margin-right: 5px;
+    /* padding-right: 20px;
+    border-right: solid 1px rgb(201, 201, 201); */
+}
+
+.ruler[data-editmode="true"] {
+    background-color: var(--content-editor-ruler-background);
+    color: var(--content-editor-ruler-accent);
+    border-right: solid 1px var(--content-editor-ruler-border);
+}
+
+.ruler[data-editmode="true"]:hover {
+    background-color: var(--content-editor-ruler-hover-background);
+    border-right: solid 1px var(--content-editor-ruler-hover-border);
+    transition: color 150ms, background-color 150ms, border-right 150ms;
+}
+
+.ruler[data-editmode="false"] {
+    color: var(--content-annotation-ruler-text);
+    border-right: solid 1px var(--content-annotation-ruler-border);
+    background-color: var(--content-annotation-ruler-background);
+}
+
+.ruler[data-editmode="false"]:hover {
+    color: var(--content-annotation-ruler-hover-text);
+    background-color: var(--content-annotation-ruler-hover-background);
+    border-right: solid 1px var(--content-annotation-ruler-hover-border);
+    transition: color 150ms, background-color 150ms, border-right 150ms;
+}
+
+.gutter {
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+
+    align-items: flex-start;
+}
+
+.selectionColumn {
+    user-select: none;
+    position: relative;
+    flex: none;
+    width: 16px;
+}
+
+.selectionRun {
+    position: absolute;
+    left: 0;
+    width: 16px;
+    cursor: pointer;
+}
+
+.selectionMarker {
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--line-height);
+    padding-left: 2px;
+    width: 16px;
+}
+
+.selectionRun:hover .selectionMarker::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: color-mix(in srgb, var(--content-editor-accent) 16%, transparent);
+}
+
+/* Keep the icon painted above its hover circle. */
+.selectionMarker svg {
+    position: relative;
+}
+
+/* Hovering a run also thickens its icons' stroke, so circle + bold read together. */
+.selectionRun:hover svg {
+    stroke-width: 2;
+}
+
+.contextBar {
+    width: 2px;
+    height: var(--line-height);
+    background-color: var(--ui-text-subtle);
+    opacity: 0.4;
+}
+.contextBar[data-active="true"] {
+    background-color: currentColor;
+    opacity: 1;
+}
+
+/* Positioning context for the absolutely-placed line numbers (same lineTop() rule
+   as the selection column, so the two columns cannot drift from each other). */
+.lineColumn {
+    user-select: none;
+    position: relative;
+
+    flex: none;
+    text-align: right;
+}
+
+/* Each number sits at its line's absolute Y; the column is the containing block. */
+.lineColumn > div {
+    position: absolute;
+    right: 0;
+    height: var(--line-height);
+}
+
+.foldColumn {
+    position: relative;
+    flex: none;
+    width: 16px;
+    user-select: none;
+}
+
+.foldToggle {
+    position: absolute;
+    left: 0;
+    width: 16px;
+    height: var(--line-height);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: currentColor;
+    background: transparent;
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    opacity: 0.48;
+}
+
+.foldToggle[data-folded="true"] {
+    opacity: 0.82;
+}
+
+.foldToggle:hover {
+    background-color: rgba(64, 123, 186, 0.1);
+    opacity: 1;
+}
+
+.foldToggle:focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: -2px;
+}
+
+.externalBar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 12.5px;
+    color: #78350f;
+    background: #fef3c7;
+    border-bottom: 1px solid #fbbf24;
+    flex-shrink: 0;
+}
+
+.externalBar[data-variant="detached"] {
+    color: #7f1d1d;
+    background: #fee2e2;
+    border-bottom-color: #f87171;
+}
+
+.externalBarMessage {
+    flex: 1;
+    line-height: 1.3;
+}
+
+.externalBarPrimary,
+.externalBarSecondary {
+    padding: 4px 10px;
+    font-size: 12px;
+    font-family: inherit;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.externalBarPrimary {
+    background: #d97706;
+    border-color: #d97706;
+    color: #fff;
+}
+
+.externalBar[data-variant="detached"] .externalBarPrimary {
+    background: #b91c1c;
+    border-color: #b91c1c;
+}
+
+.externalBarPrimary:hover {
+    filter: brightness(0.92);
+}
+
+.externalBarSecondary {
+    background: transparent;
+    border-color: currentColor;
+    color: inherit;
+}
+
+.externalBarSecondary:hover {
+    background: rgba(0, 0, 0, 0.06);
+}

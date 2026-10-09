@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    // General
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "target": "ESNext",
+
+    // Modules
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+
+    // Type Checking & Safety
+    "strict": true,
+    // Skip type-checking of .d.ts files inside node_modules. Standard practice
+    // in TS projects — third-party types often reference optional peer deps
+    // (e.g. electron-vite mentions @swc/core) that we don't install.
+    "skipLibCheck": true,
+    "types": ["vite/client", "node"]
+  }
+}

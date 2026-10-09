@@ -1,0 +1,203 @@
+.tabHeaderArea {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    background-color: var(--tab-header-area-background, var(--ui-surface-hover));
+    border-bottom: var(--tab-header-area-border, 1px solid var(--content-tab-header-area-border));
+    flex-shrink: 0;
+    width: 100%;
+    gap: var(--tab-header-area-gap, 6px);
+    padding: var(--tab-header-area-padding, 3px 6px 0);
+}
+
+.tabHeaderAreaEmpty {
+    min-height: var(--tab-header-area-empty-height, 32px);
+}
+
+.tabHeaderArea[data-mode="annotate"] {
+    border-bottom-color: var(--content-annotation-tab-header-area-border);
+}
+
+/* The scrolling tab strip. min-width:0 is required — without it this flex item
+   refuses to shrink below its content width and pushes the action slot out. */
+.tabStrip {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    flex: 1;
+    min-width: 0;
+    gap: var(--tab-strip-gap, 2px);
+    /* Firefox reserves layout space for a thin scrollbar and can't overlay it,
+       so the indicator is Chrome-only by choice rather than shift the tab row. */
+    scrollbar-width: none;
+
+    padding-bottom: var(--tab-strip-scrollbar-space, 4px);
+    margin-bottom: calc(-1 * var(--tab-strip-scrollbar-space, 4px));
+}
+
+/* Overlay scrollbar, visible only while the strip is hovered. */
+.tabStrip::-webkit-scrollbar {
+    height: 4px;
+}
+
+.tabStrip::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tabStrip::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 2px;
+}
+
+.tabStrip:hover::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--ui-text) 25%, transparent);
+}
+
+/* Right-side slot for the active tab's contributed buttons. Sits outside
+   .tabStrip so it stays pinned while the strip scrolls. */
+.tabActionArea {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 0 8px;
+}
+
+.tabActionButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ui-text-subtle);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.tabActionButton:hover {
+    color: var(--ui-accent);
+}
+
+.tabHeader {
+    padding: 0 var(--tab-header-inline-padding, 14px);
+    height: var(--tab-header-height, 30px);
+    display: flex;
+    align-items: center;
+    font-size: var(--tab-header-font-size, 13px);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--ui-text-subtle);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 3px 3px 0 0;
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+    background-color: var(--ui-surface);
+    /* Natural label width, no shrink — this is what lets .tabStrip overflow
+       and scroll instead of squeezing tabs down to nothing. */
+    flex: 0 0 auto;
+    border-bottom: none;
+}
+
+.tabHeader:hover {
+    color: var(--ui-text-muted);
+    background-color: var(--ui-surface-raised);
+}
+
+.tabHeaderActive {
+    background: var(--content-tab-background);
+    color: var(--content-tab-text);
+    border-color: var(--content-tab-border);
+}
+
+.tabHeaderActive:hover {
+    color: var(--content-tab-text);
+    background: var(--content-tab-background);
+}
+
+/* View modes only alter the selected tab. Inactive tabs retain the shared
+   neutral treatment even when their view has a custom active-mode color. */
+.tabHeaderActive[data-mode="annotate"] {
+    background-color: var(--content-annotation-tab-background);
+    border-color: var(--content-annotation-tab-border);
+    color: var(--content-annotation-accent-strong);
+}
+
+.tabHeaderActive[data-mode="annotate"]:hover {
+    background-color: var(--content-annotation-tab-hover-background);
+    color: var(--content-annotation-accent-hover);
+}
+
+/* Slot for TabDecoration renders (dirty dot, badges). Sits left of the label. */
+.tabDecoration {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 6px;
+}
+
+.tabClose {
+    align-content: center;
+    display: flex;
+    padding: 2px 2px 2px;
+    margin-left: var(--tab-close-margin, 10px);
+}
+
+.tabClose:hover {
+  background-color: color-mix(in srgb, var(--ui-text-subtle) 31%, transparent);
+  border-radius: 2px;
+}
+
+.tabClose:active {
+  background-color: color-mix(in srgb, var(--ui-text) 30%, transparent);
+}
+
+.tabFrame {
+    flex: 1;
+    background-color: var(--tab-frame-background, var(--ui-surface-raised));
+    min-height: 0;
+}
+
+.tabContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    /* Without this the container's width floors at max-content, so it grows to
+       fit every tab and .tabStrip never gets a narrow enough box to overflow. */
+    min-width: 0;
+}
+
+.tab {
+
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: clip;
+}
+
+.tabDragGhost {
+    /* Positioning is owned by DragGhost's host element. This class only
+       describes appearance — no position, z-index, or pointer-events. */
+    padding: 0 12px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    font-size: 12.5px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-accent);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px var(--ui-shadow);
+    white-space: nowrap;
+}
+
+.tabInsertionCursor {
+  position: absolute;
+  top: 0;
+  bottom: 0;        /* or height: 100% */
+  width: 3px;
+  background: var(--ui-accent);
+  pointer-events: none; /* don't let it interfere with dragover on tabs */
+  transform: translateX(-1px); /* center the bar on the gap */
+  border-radius: 1px;
+}

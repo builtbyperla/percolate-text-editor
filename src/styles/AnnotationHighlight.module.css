@@ -1,0 +1,37 @@
+
+
+.hl {
+    background-color: var(--content-annotation-highlight);
+    color: inherit;
+    cursor: pointer;
+
+    padding: 4px 0;
+}
+
+/* The ordinary case: the whole highlight is one element, so both edges close and it
+   can take symmetric treatment. This is most annotations. */
+.hl.full {
+    border-radius: 3px;
+}
+
+/* First piece of a split highlight: close the leading edge, leave the trailing edge
+   open so it meets the next piece flush. */
+.hl.capStart {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+/* Last piece: the mirror. */
+.hl.capEnd {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.startMarker {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: top;
+    user-select: none;
+    pointer-events: none;
+}

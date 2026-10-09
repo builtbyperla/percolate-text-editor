@@ -1,0 +1,377 @@
+.appShell {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--ui-canvas);
+}
+
+.appTitleBar {
+    /* Electron treats this surface as native window chrome. */
+    -webkit-app-region: drag;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 var(--app-title-bar-height);
+    min-width: 0;
+    padding: 0 90px;
+    border-bottom: 1px solid var(--ui-border);
+    background: var(--ui-title-bar-background);
+    color: var(--ui-text-muted);
+    user-select: none;
+}
+
+.appTitle {
+    position: absolute;
+    left: 90px;
+    overflow: hidden;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Clickable controls inside the otherwise draggable Electron title bar. */
+.lockToggleSegments.titleBarModeControl {
+    -webkit-app-region: no-drag;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 24px;
+    padding: 2px;
+    gap: 1px;
+    border-radius: 6px;
+}
+
+.titleBarModeControl .lockSegment {
+    min-width: 0;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+.appContent {
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+}
+
+.appContent > * {
+    height: 100%;
+}
+
+/* Row: the split frame grows to fill remaining space, the agent-toggle
+   rail keeps its own fixed width on the right edge. */
+.workspace {
+    display: flex;
+    height: 100%;
+    width: 100vw;
+    position: relative;
+}
+
+.workspace > :first-child {
+    flex: 1;
+    min-width: 0;
+}
+
+.percolatePane {
+    height: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* File-explorer rail + editor split share the workspace row.
+   The split frame grows; the rail keeps its own fixed/collapsed width. */
+.workspaceRow {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.workspaceRow > :last-child {
+    flex: 1;
+    min-width: 0;
+}
+
+.chatPane {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Note-visibility toggle: pill that reads "off" (muted) by default and
+   lights up in the sage theme when previews are always on. */
+.notesToggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    border: 1px solid color-mix(in srgb, var(--ui-settings-accent) 30%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--ui-settings-accent) 6%, transparent);
+    color: var(--ui-settings-accent);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.18s ease, background 0.18s ease,
+        border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.notesToggle:hover {
+    color: var(--ui-text);
+    background: color-mix(in srgb, var(--ui-settings-accent) 14%, transparent);
+    border-color: color-mix(in srgb, var(--ui-settings-accent) 45%, transparent);
+    box-shadow: 0 1px 4px var(--ui-shadow);
+}
+
+.notesToggle:active {
+    transform: translateY(0.5px);
+    box-shadow: none;
+}
+
+.notesToggle:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-settings-accent) 35%, transparent);
+}
+
+/* Small status dot — dim when hover-only, solid sage when always-on. */
+.notesToggleDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ui-border-strong);
+    transition: background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.notesToggleActive {
+    color: var(--ui-text);
+    background: color-mix(in srgb, var(--ui-settings-accent) 22%, transparent);
+    border-color: color-mix(in srgb, var(--ui-settings-accent) 55%, transparent);
+}
+
+.notesToggleActive:hover {
+    background: color-mix(in srgb, var(--ui-settings-accent) 28%, transparent);
+}
+
+.notesToggleActive .notesToggleDot {
+    background: var(--ui-settings-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ui-settings-accent) 22%, transparent);
+}
+
+/* Settings controls echo the compact rounded-rectangle silhouette used by
+   the interaction-mode control in the title bar. */
+.settingsButtonControl {
+    min-height: 24px;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+/* Annotate/edit lock toggle: 3-way segmented control. Displays [Unlocked | Annotation 🔒 | Edit 🔒]
+   as a contained pill with three segments. Styled to match the sage-green pill-button design language. */
+.lockToggleSegments {
+    display: inline-flex;
+    padding: 3px;
+    border: 1px solid color-mix(in srgb, var(--ui-settings-accent) 30%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--ui-settings-accent) 6%, transparent);
+    gap: 2px;
+}
+
+.lockSegment {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ui-settings-accent);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    line-height: 1;
+    min-width: 30px;
+    cursor: pointer;
+    transition: color 0.18s ease, background 0.18s ease;
+    white-space: nowrap;
+    gap: 4px;
+}
+
+.lockSegment:hover:not(.lockSegmentActive) {
+    color: var(--ui-text);
+}
+
+.lockSegmentActive {
+    background: color-mix(in srgb, var(--ui-settings-accent) 22%, transparent);
+    color: var(--ui-text);
+}
+
+.lockSegmentActive:hover {
+    background: color-mix(in srgb, var(--ui-settings-accent) 28%, transparent);
+}
+
+.lockToggleSegments.settingsModeControl {
+    min-height: 24px;
+    padding: 2px;
+    gap: 1px;
+    border-radius: 6px;
+}
+
+.settingsModeControl .lockSegment {
+    padding: 4px 9px;
+    border-radius: 4px;
+}
+
+.agentToggleRail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    flex-shrink: 0;
+    height: 100%;
+    border: none;
+    border-left: 1px solid var(--ui-border);
+    background: var(--ui-surface-hover);
+    color: var(--ui-text-subtle);
+    cursor: pointer;
+    padding: 0;
+    transition: background 120ms ease, color 120ms ease;
+}
+
+.agentToggleRail:hover {
+    background: var(--ui-accent-soft);
+    color: var(--ui-accent);
+}
+
+.agentToggleIcons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sizing/stroke set here as properties so they beat the attributes lucide
+   puts on its own svg. */
+.agentToggleIcon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    transform: rotate(-90deg);
+    transition: transform 120ms ease;
+}
+
+/* Triangle points right while the panel is visible, and flips left once it is
+   hidden, matching the former chevron's state direction. */
+.agentToggleIconOpen {
+    transform: rotate(90deg);
+}
+
+.evidencePlaceholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ui-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    border-bottom: 1px solid var(--ui-border);
+    background: var(--ui-surface);
+}
+
+.promptBackdrop {
+    position: fixed;
+    inset: 0;
+    background: var(--ui-overlay);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.promptModal {
+    min-width: 320px;
+    max-width: 480px;
+    background: var(--ui-surface-raised);
+    border-radius: 6px;
+    box-shadow: 0 12px 32px var(--ui-shadow);
+    padding: 20px 22px 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.promptTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ui-text);
+    margin-bottom: 8px;
+}
+
+.promptMessage {
+    font-size: 13px;
+    color: var(--ui-text-muted);
+    line-height: 1.45;
+    margin-bottom: 18px;
+    white-space: pre-wrap;
+}
+
+.promptButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.promptButton {
+    padding: 6px 14px;
+    font-size: 12.5px;
+    font-family: inherit;
+    color: var(--ui-text);
+    background: var(--ui-surface-hover);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.promptButton:hover {
+    background: var(--ui-border);
+    color: var(--ui-text);
+}
+
+/* First option renders as the affirmative default (Enter-bound). */
+.promptButtonDefault {
+    background: var(--ui-accent);
+    border-color: var(--ui-accent);
+    color: var(--ui-on-accent);
+}
+
+.promptButtonDefault:hover {
+    background: var(--ui-accent-hover);
+    border-color: var(--ui-accent-hover);
+    color: var(--ui-on-accent);
+}
+
+/* Dirty-dot decoration for TabHeader (see containers/tabDecorations.ts). Sized
+   to sit inside the header row (32px) without shifting label position. */
+.dirtyDot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ui-text-muted);
+}
+
+.dirtyDotDetached {
+    background: var(--ui-danger);
+}

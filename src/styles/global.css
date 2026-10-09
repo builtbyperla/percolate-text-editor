@@ -1,0 +1,138 @@
+:root {
+    --font-mono: 'Google Sans Code Variable', ui-monospace, monospace;
+    /* --font-sans: 'Figtree Variable', sans-serif; */
+    --font-sans: 'Inter Variable', sans-serif;
+
+    --sans-default-size: 13px;
+
+    /* Bootstrap values; the appearance contract replaces these atomically. */
+    --ui-canvas: #ffffff;
+    --ui-surface: #fafafa;
+    --ui-secondary-surface: #fafafa;
+    --ui-tertiary-surface: #fafafa;
+    --ui-surface-raised: #ffffff;
+    --ui-surface-raised-frame: color-mix(in srgb, var(--ui-accent) 5%, var(--ui-surface-raised));
+    --ui-surface-hover: #f3f4f6;
+    --ui-title-bar-background: var(--ui-surface);
+    --ui-border: #e5e7eb;
+    --ui-border-strong: #d1d5db;
+    --ui-pane-divider: var(--ui-border);
+    --ui-text: #374151;
+    --ui-text-muted: #6b7280;
+    --ui-text-subtle: #9ca3af;
+    --ui-accent: #3b82f6;
+    --ui-secondary-accent: #7d9787;
+    --ui-accent-hover: #2563eb;
+    --ui-accent-soft: #e0e7ff;
+    --ui-settings-accent: color-mix(in oklch, var(--ui-accent) 72%, var(--ui-text-muted));
+    --ui-on-accent: #ffffff;
+    --ui-info: #3c6e93;
+    --ui-info-soft: #ecf4f9;
+    --ui-selection: rgba(59, 130, 246, 0.18);
+    --ui-scrollbar: #d1d5db;
+    --ui-scrollbar-hover: #9ca3af;
+    --ui-danger: #dc2626;
+    --ui-warning: #d97706;
+    --ui-success: #3e811f;
+    --ui-success-soft: #eff9ee;
+    --ui-danger-soft: #fdecec;
+    --ui-overlay: rgba(15, 23, 42, 0.32);
+    --ui-tooltip: rgba(30, 30, 30, 0.88);
+    --ui-tooltip-text: #f0f0f0;
+    --ui-shadow: rgba(0, 0, 0, 0.12);
+
+    --content-chat-background: #fafafa;
+    --content-chat-accent: #3b82f6;
+    --content-chat-accent-hover: #2563eb;
+    --content-chat-accent-soft: #e0e7ff;
+    --content-chat-on-accent: #ffffff;
+    --content-editor-background: #fcfcfc;
+    --content-editor-accent: #3c6e93;
+    --content-annotation-background: #fcfcfc;
+    --content-annotation-accent: #7d9787;
+    --content-annotation-accent-strong: #3e811f;
+    --content-annotation-accent-hover: #4a5a50;
+    --content-editor-ruler-background: #f4f8fd;
+    --content-editor-ruler-accent: #407bba;
+    --content-editor-ruler-hover-background: #eef2f9;
+    --content-editor-ruler-border: #5e81a9;
+    --content-editor-ruler-hover-border: #3c6e93;
+    --content-annotation-ruler-background: #eff9ee;
+    --content-annotation-ruler-text: #3e811f;
+    --content-annotation-ruler-hover-background: #e5f2eb;
+    --content-annotation-ruler-hover-text: #4a5a50;
+    --content-annotation-ruler-border: #599233;
+    --content-annotation-ruler-hover-border: #3e811f;
+    --content-annotation-highlight: #dff1ea;
+    --content-native-selection: rgba(157, 205, 165, 0.4);
+    --content-annotation-drag: rgba(115, 184, 142, 0.22);
+    --content-annotation-hover: rgba(142, 158, 148, 0.075);
+    --content-tab-background: rgb(247, 251, 255);
+    --content-tab-border: #64a2d4;
+    --content-tab-header-area-border: color-mix(in srgb, var(--content-tab-border) 20%, var(--ui-border));
+    --content-tab-text: #3c6e93;
+    --content-annotation-tab-background: #f6fdf5;
+    --content-annotation-tab-hover-background: #f4fcf3;
+    --content-annotation-tab-border: #53902a;
+    --content-annotation-tab-header-area-border: color-mix(in srgb, var(--content-annotation-tab-border) 20%, var(--ui-border));
+    --content-evidence-pane-background: #ffffff;
+    --content-evidence-header-background: #f3f3f3;
+    --content-evidence-actions-background: #f3f3f3;
+    --content-evidence-header-border: var(--ui-border-strong);
+    --content-evidence-source-background: #f4f8fd;
+    --content-evidence-source-border: #3c6e93;
+    --content-evidence-source-text: #3c6e93;
+    --content-evidence-annotation-background: #eff9ee;
+    --content-evidence-annotation-border: #7d9787;
+    --content-evidence-annotation-text: #7d9787;
+    --content-evidence-annotation-toggle: #4e9626;
+    --content-note-surface: rgb(67, 79, 75);
+    --content-note-border: #8fd6a8;
+    --content-note-text: #e3eae4;
+    --content-note-dot: #8aa896;
+    --content-note-line: rgba(138, 168, 150, 0.55);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: var(--sans-default-size);
+    background: var(--ui-canvas);
+    color: var(--ui-text);
+}
+
+/* No rubber-band bounce at the ends of any scroll container. */
+* {
+    overscroll-behavior: none;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--ui-scrollbar);
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--ui-scrollbar-hover);
+}
+
+::selection {
+    background-color: var(--content-native-selection);
+}

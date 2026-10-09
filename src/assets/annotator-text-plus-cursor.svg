@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 64 64">
+  <!-- Rounded I-beam with a detached plus for annotate-mode character selection. -->
+  <g fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 13H32 M20 13V54 M8 54H32"/>
+    <path d="M48 7V27 M38 17H58"/>
+  </g>
+  <g fill="none" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 13H32 M20 13V54 M8 54H32"/>
+    <path d="M48 7V27 M38 17H58"/>
+  </g>
+</svg>

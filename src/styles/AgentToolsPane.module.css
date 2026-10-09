@@ -1,0 +1,570 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+}
+
+.body {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Keep the active ViewBlock mounted so its state and DOM survive collapse. */
+.bodyHidden {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 1px 4px;
+    gap: 2px;
+    flex-shrink: 0;
+    background: var(--content-evidence-header-background);
+    border-bottom: 1px solid var(--content-evidence-header-border);
+}
+
+.hideButton,
+.tabButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--ui-text-subtle);
+    cursor: pointer;
+}
+
+.hideButton:hover,
+.tabButton:hover {
+    color: var(--ui-info);
+    background: var(--ui-surface-hover);
+}
+
+.title {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: capitalize;
+    letter-spacing: -0.01em;
+    color: var(--ui-text-muted);
+}
+
+.tabs {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.tabButton.active {
+    color: var(--ui-accent);
+    background: var(--ui-accent-soft);
+}
+
+.sessionsPane {
+    --agent-pane-primary-size: var(--sans-default-size);
+    --agent-pane-secondary-size: calc(var(--sans-default-size) - 1.5px);
+    --agent-pane-caption-size: calc(var(--sans-default-size) - 2px);
+
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: var(--ui-text);
+    background: var(--content-evidence-pane-background);
+    font-family: var(--font-sans);
+}
+
+.sessionsToolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 52px;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--ui-border);
+}
+
+.sessionsEyebrow {
+    margin-bottom: 3px;
+    color: var(--ui-text-subtle);
+    font-size: var(--agent-pane-caption-size);
+    font-weight: 600;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+}
+
+.sessionsHeading {
+    color: var(--ui-text);
+    font-size: var(--agent-pane-primary-size);
+    font-weight: 550;
+}
+
+.newSessionButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 27px;
+    padding: 0 9px;
+    border: 1px solid color-mix(in srgb, var(--ui-accent) 38%, var(--ui-border));
+    border-radius: 6px;
+    color: var(--ui-accent);
+    background: color-mix(in srgb, var(--ui-accent) 7%, var(--ui-surface-raised));
+    font: 600 11.5px/1 var(--font-sans);
+    cursor: pointer;
+}
+
+.newSessionButton:hover {
+    border-color: var(--ui-accent);
+    background: var(--ui-accent-soft);
+}
+
+.compactButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 25px;
+    padding: 0 7px;
+    border: 1px solid color-mix(in srgb, var(--ui-accent) 38%, var(--ui-border));
+    border-radius: 5px;
+    color: var(--ui-text-muted);
+    background: color-mix(in srgb, var(--ui-accent) 7%, var(--ui-surface-raised));
+    font: 600 10.5px/1 var(--font-sans);
+    cursor: pointer;
+}
+
+.compactButton:hover:not(:disabled) {
+    color: var(--ui-accent);
+    border-color: color-mix(in srgb, var(--ui-accent) 45%, var(--ui-border));
+}
+
+.compactButton:disabled {
+    cursor: default;
+    opacity: 0.45;
+}
+
+.newSessionButton:focus-visible,
+.sessionMain:focus-visible,
+.sessionActionButton:focus-visible,
+.renameInput:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--ui-accent) 55%, transparent);
+    outline-offset: -2px;
+}
+
+.sessionList {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.sessionRow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-bottom: 1px solid var(--ui-border);
+    transition: background 120ms ease, border-color 120ms ease;
+}
+
+.sessionRow:hover {
+    background: var(--ui-surface-hover);
+}
+
+.sessionRowActive {
+    background: color-mix(in srgb, var(--ui-accent) 7%, var(--ui-surface-raised));
+    box-shadow: inset 2px 0 var(--ui-accent);
+}
+
+.sessionRowActive:hover {
+    background: color-mix(in srgb, var(--ui-accent) 10%, var(--ui-surface-raised));
+}
+
+.sessionMain {
+    flex: 1;
+    min-width: 0;
+    padding: 9px 4px 9px 12px;
+    border: 0;
+    color: inherit;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+}
+
+.sessionTitleRow {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+}
+
+.sessionState {
+    width: 6px;
+    height: 6px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--ui-text-subtle);
+}
+
+.sessionState[data-state="idle"] {
+    background: var(--ui-success);
+}
+
+.sessionState[data-state="calling_agent"],
+.sessionState[data-state="running_tool"],
+.sessionState[data-state="cancelling"] {
+    background: var(--ui-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ui-accent) 12%, transparent);
+}
+
+.sessionState[data-state="waiting_for_control"],
+.sessionState[data-state="paused"] {
+    background: var(--ui-warning);
+}
+
+.sessionState[data-state="failed"] {
+    background: var(--ui-danger);
+}
+
+.sessionTitle {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--ui-text);
+    font-size: var(--agent-pane-primary-size);
+    font-weight: 550;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sessionMeta {
+    display: block;
+    margin: 3px 0 0 13px;
+    overflow: hidden;
+    color: var(--ui-text-muted);
+    font-size: var(--agent-pane-secondary-size);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sessionActions {
+    display: flex;
+    align-items: center;
+    flex: none;
+    gap: 1px;
+    margin-right: 4px;
+    opacity: 0;
+    transition: opacity 120ms ease;
+}
+
+.sessionActionButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 23px;
+    height: 23px;
+    flex: none;
+    padding: 0;
+    border: 0;
+    border-radius: 5px;
+    color: var(--ui-text-subtle);
+    background: transparent;
+    cursor: pointer;
+    transition: color 120ms ease, background 120ms ease;
+}
+
+.sessionRow:hover .sessionActions,
+.sessionRow:focus-within .sessionActions {
+    opacity: 1;
+}
+
+.sessionActionButton:hover {
+    color: var(--ui-accent);
+    background: var(--ui-accent-soft);
+}
+
+.archiveButton:hover {
+    color: var(--ui-warning);
+    background: color-mix(in srgb, var(--ui-warning) 10%, transparent);
+}
+
+.renameInput {
+    box-sizing: border-box;
+    width: 100%;
+    height: 25px;
+    padding: 0 6px;
+    border: 1px solid var(--ui-accent);
+    border-radius: 4px;
+    color: var(--ui-text);
+    background: var(--ui-surface);
+    font: 560 12px/1 var(--font-sans);
+}
+
+.sessionId {
+    display: block;
+    margin-top: 3px;
+    overflow: hidden;
+    color: var(--ui-text-subtle);
+    font: 9.5px/1.2 var(--font-mono);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sessionsEmpty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 24px;
+    color: var(--ui-text-subtle);
+    font-size: 11.5px;
+    line-height: 1.45;
+    text-align: center;
+}
+
+.sessionsEmpty strong {
+    color: var(--ui-text-muted);
+    font-size: 12px;
+}
+
+.sessionsEmptyIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 2px;
+    border: 1px solid var(--ui-border);
+    border-radius: 9px;
+    color: var(--ui-info);
+    background: var(--ui-surface-raised);
+}
+
+.activityPane {
+    --agent-pane-primary-size: var(--sans-default-size);
+    --agent-pane-secondary-size: calc(var(--sans-default-size) - 1.5px);
+    --agent-pane-caption-size: calc(var(--sans-default-size) - 2px);
+
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: var(--ui-text);
+    background: var(--content-evidence-pane-background);
+    font-family: var(--font-sans);
+}
+
+.activityToolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    min-height: 45px;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--ui-border);
+}
+
+.activityContext {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 0;
+    gap: 8px;
+}
+
+.activityContextDetails {
+    display: flex;
+    flex: 1;
+    align-items: baseline;
+    min-width: 0;
+    gap: 6px;
+    color: var(--ui-text-muted);
+    font-size: var(--agent-pane-secondary-size);
+    white-space: nowrap;
+}
+
+.activityContextDetails strong {
+    flex: none;
+    color: var(--ui-text);
+    font-size: var(--agent-pane-primary-size);
+    font-weight: 550;
+}
+
+.tokenEstimate {
+    position: relative;
+    flex: none;
+    border-bottom: 1px dotted currentColor;
+    cursor: help;
+    outline: none;
+}
+
+.tokenEstimateTooltip {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 7px);
+    left: 0;
+    width: 230px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    color: var(--ui-tooltip-text);
+    background: var(--ui-tooltip);
+    box-shadow: 0 3px 10px var(--ui-shadow);
+    font: 10.5px/1.4 var(--font-sans);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-2px);
+    transition: opacity 100ms ease, transform 100ms ease;
+    white-space: normal;
+}
+
+.tokenEstimateTooltip::before {
+    position: absolute;
+    left: 12px;
+    bottom: 100%;
+    border: 4px solid transparent;
+    border-bottom-color: var(--ui-tooltip);
+    content: '';
+}
+
+.tokenEstimate:hover .tokenEstimateTooltip,
+.tokenEstimate:focus-visible .tokenEstimateTooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tokenEstimate:focus-visible {
+    border-bottom-color: var(--ui-accent);
+}
+
+.activityFeed {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    flex-direction: column;
+}
+
+.activityList {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.activityRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    padding: 9px 12px;
+    border: 0;
+    border-bottom: 1px solid var(--ui-border);
+    color: inherit;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+}
+
+.activityRow:hover {
+    background: var(--ui-surface-hover);
+}
+
+.activityRow:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--ui-accent) 50%, transparent);
+    outline-offset: -2px;
+}
+
+.activityMessageIcon,
+.activityToolIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex: none;
+    color: var(--ui-text-subtle);
+}
+
+.activityRow[data-status="pending"] .activityToolIcon {
+    color: var(--ui-warning);
+}
+
+.activityRow[data-status="running"] .activityToolIcon {
+    color: var(--ui-accent);
+}
+
+.activityRow[data-status="done"] .activityToolIcon {
+    color: var(--ui-success);
+}
+
+.activityRow[data-status="error"] .activityToolIcon,
+.activityRow[data-status="rejected"] .activityToolIcon {
+    color: var(--ui-danger);
+}
+
+.activityContent {
+    min-width: 0;
+    flex: 1;
+}
+
+.activityTitleLine,
+.activityDetail {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 7px;
+}
+
+.activityName {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    color: var(--ui-text);
+    font-size: var(--agent-pane-primary-size);
+    font-weight: 550;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.activityTime,
+.activityStatus {
+    flex: none;
+    color: var(--ui-text-subtle);
+    font-size: var(--agent-pane-caption-size);
+    font-variant-numeric: tabular-nums;
+}
+
+.activityDetail {
+    margin-top: 3px;
+}
+
+.activitySubject {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    color: var(--ui-text-muted);
+    font: var(--agent-pane-secondary-size)/1.35 var(--font-sans);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

@@ -1,0 +1,48 @@
+
+.menu {
+    position: absolute;
+    z-index: 1000;
+    min-width: 160px;
+    padding: 4px;
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 6px;
+    box-shadow: 0 4px 16px var(--ui-shadow);
+    font-size: 12.5px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--ui-text);
+    user-select: none;
+}
+
+.item {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.item:hover {
+    background: var(--ui-info-soft);
+    color: var(--ui-info);
+}
+
+/* Non-interactive rows: greyed out, no hover feedback, clicks ignored (guarded
+   in ContextMenu.invoke). */
+.disabled {
+    color: var(--ui-text-subtle);
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Destructive actions (e.g. close all) — red text, red-tinted hover. */
+.danger {
+    color: var(--ui-danger);
+}
+
+.danger:hover {
+    background: var(--ui-danger-soft);
+    color: var(--ui-danger);
+}

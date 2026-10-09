@@ -1,0 +1,584 @@
+.activityBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 0;
+    width: 40px;
+    flex-shrink: 0;
+    height: 100%;
+    border-right: 1px solid var(--ui-border);
+    background: var(--ui-surface-hover);
+}
+
+.activityButton {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: var(--ui-text-muted);
+    background: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.activityButton:hover {
+    background: var(--ui-border);
+    color: var(--ui-text);
+}
+
+.activityButton.active {
+    background: var(--ui-accent-soft);
+    color: var(--ui-accent);
+}
+
+.activityButtonBottom {
+    order: 1;
+    margin-top: auto;
+}
+
+.activityDivider {
+    width: 22px;
+    height: 1px;
+    margin: 3px 0 2px;
+    flex-shrink: 0;
+    border-radius: 999px;
+    background: var(--ui-border);
+}
+
+/* Fills its split pane; the frame's divider handles resizing. */
+.panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    background: var(--ui-surface);
+    border-right: 1px solid var(--ui-border);
+    overflow: hidden;
+}
+
+.panelHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--ui-text-muted);
+    padding: 8px 8px;
+    border-bottom: 1px solid var(--ui-border);
+    flex-shrink: 0;
+}
+
+.panelHeaderAction {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin: -4px 0;
+    padding: 0;
+    color: var(--ui-text-muted);
+    background: transparent;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.panelHeaderActions {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.panelHeaderAction:hover {
+    color: var(--ui-text);
+    background: var(--ui-surface-hover);
+}
+
+.panelHeaderAction:focus-visible {
+    outline: 2px solid var(--ui-accent);
+    outline-offset: 1px;
+}
+
+/* Settings panel: a column of labeled setting rows. The panel pane is narrow,
+   so the segmented controls wrap instead of overflowing it. */
+.settingsPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 14px 12px;
+    overflow-y: auto;
+}
+
+.settingsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+}
+
+.settingsSectionTitle {
+    margin: 0;
+    color: var(--ui-text-subtle);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+}
+
+.settingRow {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.settingLabel {
+    font-family: var(--font-sans);
+    font-weight: 550;
+    color: var(--ui-text);
+}
+
+.settingHint {
+    font-family: var(--font-sans);
+    line-height: 1.4;
+    color: var(--ui-text-subtle);
+}
+
+.selectionActionGroup {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.selectionActionGroup legend { padding: 0; }
+
+.selectionActionOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.selectionActionOption {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.selectionActionOption input { margin: 2px 0 0; }
+
+.selectionActionTitle,
+.selectionActionDescription { display: block; }
+
+.selectionActionTitle { color: var(--ui-text); }
+
+.selectionActionDescription {
+    margin-top: 2px;
+    color: var(--ui-text-subtle);
+    line-height: 1.4;
+}
+
+.selectionActionGroup .settingHint { margin: 10px 0 0; }
+
+.themeSelect {
+    width: 100%;
+    padding: 6px 8px;
+    color: var(--ui-text);
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 5px;
+    font: inherit;
+}
+
+.themeSelect:focus-visible {
+    border-color: var(--ui-accent);
+    outline: 2px solid var(--ui-accent-soft);
+    outline-offset: 1px;
+}
+
+.settingsInput {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 6px 8px;
+    color: var(--ui-text);
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 5px;
+    font: inherit;
+}
+
+.settingsInput:focus-visible {
+    border-color: var(--ui-accent);
+    outline: 2px solid var(--ui-accent-soft);
+    outline-offset: 1px;
+}
+
+.settingsFileActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.settingsFileActions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 8px;
+    color: var(--ui-text);
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 5px;
+    cursor: pointer;
+    font: inherit;
+}
+
+.settingsFileActions button:hover:not(:disabled) { border-color: var(--ui-accent); }
+.settingsFileActions button:disabled { opacity: 0.5; cursor: default; }
+
+.settingsPath {
+    width: 100%;
+    overflow: hidden;
+    color: var(--ui-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.settingsStatus {
+    color: var(--ui-text-subtle);
+    font-size: 11px;
+}
+
+.settingsPanel :global(.lockToggleSegments) {
+    flex-wrap: wrap;
+}
+
+.settingsPanel :global(.lockSegment) {
+    min-width: 0;
+    padding: 4px 8px;
+}
+
+.openFullSettings {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 11px 12px;
+    color: var(--ui-text);
+    text-align: left;
+    background: color-mix(in srgb, var(--ui-accent) 5%, var(--ui-surface-raised));
+    border: 1px solid color-mix(in srgb, var(--ui-accent) 38%, var(--ui-border));
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.openFullSettings:hover {
+    border-color: var(--ui-accent);
+    background: color-mix(in srgb, var(--ui-accent) 9%, var(--ui-surface-raised));
+}
+
+.openFullSettings span {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.openFullSettings strong {
+    font-size: 14px;
+}
+
+.openFullSettings small {
+    color: var(--ui-text-subtle);
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.settingsWindowBackdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    background: var(--ui-overlay);
+}
+
+.settingsWindow {
+    display: flex;
+    flex-direction: column;
+    width: min(860px, calc(100vw - 56px));
+    height: min(720px, calc(100vh - 56px));
+    min-height: 420px;
+    overflow: hidden;
+    color: var(--ui-text);
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 10px;
+    box-shadow: 0 20px 60px var(--ui-shadow);
+    font-family: var(--font-sans);
+}
+
+.settingsWindowHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 0 0 auto;
+    padding: 17px 20px;
+    border-bottom: 1px solid var(--ui-border);
+}
+
+.settingsWindowHeader h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.settingsWindowHeader p {
+    margin: 4px 0 0;
+    color: var(--ui-text-subtle);
+    font-size: 12px;
+}
+
+.settingsWindowHeader button {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    color: var(--ui-text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.settingsWindowHeader button:hover {
+    color: var(--ui-text);
+    background: var(--ui-surface-hover);
+    border-color: var(--ui-border);
+}
+
+.settingsWindowBody {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.8fr) minmax(320px, 1.2fr);
+    gap: 32px;
+    padding: 22px;
+    overflow-y: auto;
+}
+
+@media (max-width: 700px) {
+    .settingsWindowBackdrop {
+        padding: 12px;
+    }
+
+    .settingsWindow {
+        width: calc(100vw - 24px);
+        height: calc(100vh - 24px);
+    }
+
+    .settingsWindowBody {
+        grid-template-columns: 1fr;
+    }
+}
+
+.themeLab {
+    border-top: 1px solid var(--ui-border);
+    padding-top: 12px;
+}
+
+.themeLabToggle,
+.themeLabActions button {
+    padding: 6px 9px;
+    color: var(--ui-text);
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 5px;
+    cursor: pointer;
+    font: inherit;
+}
+
+.themeLabToggle:hover,
+.themeLabActions button:hover {
+    border-color: var(--ui-accent);
+}
+
+.themeLabBody {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-top: 10px;
+}
+
+.themeLabIntro {
+    margin: 0;
+    color: var(--ui-text-subtle);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.themeLabHeading {
+    margin: 7px 0 1px;
+    color: var(--ui-text-muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.themeTokenRow {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.themeTokenLabel {
+    color: var(--ui-text-muted);
+    font-size: 12px;
+}
+
+.themeTokenControls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+
+.themeColorInput {
+    width: 29px;
+    height: 29px;
+    flex: 0 0 29px;
+    padding: 2px;
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 5px;
+}
+
+.themeOverrideChip {
+    height: 26px;
+    flex: 0 0 auto;
+    padding: 0 7px;
+    color: var(--ui-accent);
+    background: var(--ui-accent-soft);
+    border: 1px solid color-mix(in srgb, var(--ui-accent) 35%, var(--ui-border));
+    border-radius: 999px;
+    cursor: pointer;
+    font: inherit;
+    font-size: 10px;
+    font-weight: 650;
+}
+
+.themeFactory {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 9px;
+    background: color-mix(in srgb, var(--ui-accent) 4%, var(--ui-surface-raised));
+    border: 1px solid var(--ui-border);
+    border-radius: 6px;
+}
+
+.themeFactoryColors {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+}
+
+.themeFactoryColors label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--ui-text-muted);
+    font-size: 10px;
+}
+
+.themeFactoryColors input {
+    width: 27px;
+    height: 27px;
+    padding: 2px;
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 5px;
+}
+
+.themeFactoryApply {
+    align-self: flex-start;
+    padding: 5px 9px;
+    color: var(--ui-on-accent);
+    background: var(--ui-accent);
+    border: 1px solid var(--ui-accent);
+    border-radius: 5px;
+    cursor: pointer;
+    font: inherit;
+}
+
+.themeFactoryApply:hover {
+    background: var(--ui-accent-hover);
+}
+
+.themeValueInput {
+    width: 100%;
+    min-width: 0;
+    padding: 5px 6px;
+    color: var(--ui-text);
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 5px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+}
+
+.themeResetButton {
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    color: var(--ui-text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.themeResetButton:disabled {
+    opacity: 0.25;
+    cursor: default;
+}
+
+.themeAdvanced {
+    color: var(--ui-text-muted);
+    font-size: 12px;
+}
+
+.themeAdvanced summary {
+    padding: 5px 0;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.themeAdvanced[open] {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.themeLabActions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding-top: 5px;
+}
+
+.themeLabActions span {
+    color: var(--ui-success);
+    font-size: 11px;
+}

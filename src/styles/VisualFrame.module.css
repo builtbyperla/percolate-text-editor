@@ -1,0 +1,179 @@
+@position-try --note-inline-right-top {
+    /* Vertical-edge escape hatch: keep the note beside/overlapping its anchor
+       instead of moving it below. The base right inset still supplies the
+       surface clamp and lets the note shrink horizontally. */
+    top: var(--note-bumper-top, anchor(top));
+    left: anchor(right);
+    bottom: auto;
+    margin-top: 0px;
+    margin-left: 2px;
+}
+
+@position-try --note-inline-right-bottom {
+    top: auto;
+    left: anchor(right);
+    bottom: var(--note-bumper-bottom, anchor(bottom));
+    margin-top: 0px;
+    margin-left: 2px;
+}
+
+.editor {
+    display: inline-flex;
+    flex-direction: column;
+    width: 200px;
+    min-height: 110px;
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px var(--ui-shadow), 0 1px 3px color-mix(in srgb, var(--ui-shadow) 50%, transparent);
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.editorHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 4px 0px;
+}
+
+/* Delete + send, grouped left so close keeps its familiar top-right corner. */
+.editorActions {
+    display: flex;
+    gap: 2px;
+}
+
+.editor:focus-within {
+    border-color: color-mix(in srgb, var(--content-annotation-accent) 35%, transparent);
+    box-shadow: 0 8px 24px var(--ui-shadow), 0 0 0 1.5px color-mix(in srgb, var(--content-annotation-accent) 25%, transparent);
+}
+
+.headerButton {
+    width: 22px;
+    height: 22px;
+    border: solid 1px transparent;
+    background: transparent;
+    color: var(--ui-text-subtle);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    padding: 0;
+    transition: color 0.18s ease, background 0.18s ease,
+        border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.headerButton:hover {
+    color: var(--content-annotation-accent-hover);
+    background: color-mix(in srgb, var(--content-annotation-accent) 18%, transparent);
+    border-color: color-mix(in srgb, var(--content-annotation-accent) 35%, transparent);
+    box-shadow: 0 1px 4px var(--ui-shadow);
+    transform: translateY(-0.5px);
+}
+
+.headerButton:active {
+    transform: translateY(0);
+    background: color-mix(in srgb, var(--content-annotation-accent) 28%, transparent);
+    box-shadow: none;
+}
+
+/* Send with an empty note: visible but inert, no hover lift. */
+.headerButton:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.headerButton:disabled:hover {
+    color: var(--ui-text-subtle);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
+}
+
+.bodyInput {
+    flex: 1;
+    min-height: 80px;
+    padding: 6px 6px;
+    border: none;
+    outline: none;
+    resize: none;
+    background: transparent;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    color: var(--ui-text-muted);
+}
+
+.bodyInput::placeholder {
+    color: var(--content-annotation-accent);
+}
+
+.floatingnote {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    background: var(--content-note-surface);
+    border-radius: 4px;
+    border-left: 2px solid var(--content-note-border);
+    padding: 3px 6px 2px 6px;
+    color: var(--content-note-text);
+    box-shadow: 0 2px 10px var(--ui-shadow);
+
+    width: fit-content;
+    min-width: 40px;
+    max-width: 300px;
+    /* Shrink past the text's intrinsic width, which a flex item will not do by
+       default — without this the note stops at its content and overruns the box. */
+    flex-shrink: 1;
+    white-space: normal;
+    word-wrap: break-word;
+    cursor: default;
+
+    pointer-events: auto;
+    user-select: none;
+}
+
+.floatingnote[data-placement='side'] {
+    margin-bottom: 2px;
+    /* The dot takes over as the leading-edge marker, so the rail would be a second
+       mark on the same edge. Overhead notes render no dot and keep theirs. */
+    border-left: none;
+}
+
+.noteRow {
+    display: flex;
+    align-items: center;
+}
+
+.noteRow[data-placement='above'] {
+    align-items: flex-start;
+}
+
+.noteDot {
+    flex: none;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--content-note-dot);
+
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ui-surface-raised) 60%, transparent);
+}
+
+.noteLine {
+    flex: none;
+    width: 7px;
+    height: 1px;
+    background: var(--content-note-line);
+}
+
+.preview {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

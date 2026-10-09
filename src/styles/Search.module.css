@@ -1,0 +1,134 @@
+.panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+/* Query input + flag toggles, pinned above the scrolling results. */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    border-bottom: 1px solid var(--ui-border);
+}
+
+.input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ui-text);
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 4px;
+    outline: none;
+}
+
+.input:focus {
+    border-color: var(--ui-accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-accent) 25%, transparent);
+}
+
+.flags {
+    display: flex;
+    gap: 4px;
+}
+
+/* Case / word / regex toggles — muted by default, sage when on. */
+.flag {
+    min-width: 26px;
+    padding: 3px 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ui-accent);
+    background: color-mix(in srgb, var(--ui-accent) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ui-accent) 30%, transparent);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.flag:hover {
+    background: color-mix(in srgb, var(--ui-accent) 14%, transparent);
+    color: var(--ui-text);
+}
+
+.flagOn {
+    background: color-mix(in srgb, var(--ui-accent) 22%, transparent);
+    border-color: color-mix(in srgb, var(--ui-accent) 55%, transparent);
+    color: var(--ui-text);
+}
+
+/* Scrolling results region. */
+.results {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 8px;
+}
+
+/* Empty / loading / unavailable message. */
+.hint {
+    padding: 12px 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ui-text-subtle);
+}
+
+.group {
+    margin-top: 2px;
+}
+
+.groupHeader {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ui-text);
+    cursor: pointer;
+    user-select: none;
+    white-space: pre;
+}
+
+.groupHeader:hover {
+    background: var(--ui-surface-hover);
+}
+
+.groupCount {
+    margin-left: auto;
+    font-size: 10px;
+    color: var(--ui-text-subtle);
+}
+
+/* One match row: line number, then the previewed line text (single-line, elided). */
+.matchRow {
+    display: flex;
+    gap: 8px;
+    padding: 2px 8px 2px 24px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ui-text-muted);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.matchRow:hover {
+    background: var(--ui-surface-hover);
+}
+
+.matchLine {
+    color: var(--ui-text-subtle);
+    flex-shrink: 0;
+    min-width: 28px;
+    text-align: right;
+}
+
+.matchPreview {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

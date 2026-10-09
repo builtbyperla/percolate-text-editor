@@ -1,0 +1,6 @@
+interface InnerTextProps {
+
+}
+class AnnotationWrapper {
+
+}

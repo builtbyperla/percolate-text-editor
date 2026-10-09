@@ -1,0 +1,111 @@
+.wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.wrapperInline {
+    position: relative;
+    display: inline;
+}
+
+.panel, .panelPortal {
+    width: 240px;
+    background: var(--ui-surface);
+    border: 1px solid var(--ui-border);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px var(--ui-shadow), 0 1px 3px color-mix(in srgb, var(--ui-shadow) 50%, transparent);
+    padding: 10px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.panel {
+    position: absolute;
+    top: 34px;
+    right: 0;
+}
+
+.panelPortal {
+    position: absolute;
+}
+
+.dismiss {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--ui-text-subtle);
+    line-height: 1;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: color 0.1s, background 0.1s;
+}
+
+.dismiss:hover {
+    color: var(--ui-text);
+    background: color-mix(in srgb, var(--ui-text) 7%, transparent);
+}
+
+.input {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 80px;
+    resize: none;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--ui-text);
+    background: var(--ui-surface-raised);
+    outline: none;
+    box-shadow: inset 0 0 0 1px var(--ui-border);
+    transition: box-shadow 0.15s;
+}
+
+.input:focus {
+    box-shadow: inset 0 0 0 1.5px var(--ui-accent);
+}
+
+.input::placeholder {
+    color: var(--ui-text-subtle);
+}
+
+.preview, .previewPortal {
+    max-width: 220px;
+    min-width: 80px;
+    background: var(--ui-tooltip);
+    color: var(--ui-tooltip-text);
+    border-radius: 7px;
+    padding: 6px 10px;
+    font-size: 11.5px;
+    font-family: var(--font-mono);
+    line-height: 1.5;
+    z-index: 9999;
+    box-shadow: 0 4px 14px var(--ui-shadow);
+    pointer-events: none;
+    white-space: pre-wrap;
+    word-break: break-word;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.preview {
+    position: absolute;
+    top: 34px;
+    right: 0;
+}
+
+.previewPortal {
+    position: absolute;
+}

@@ -1,0 +1,255 @@
+.strip {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    background: var(--content-evidence-pane-background);
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.settingsBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    flex-shrink: 0;
+    background-color: var(--content-evidence-actions-background);
+}
+
+.deleteSelected {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ui-text-subtle);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.deleteSelected:hover:not(:disabled) {
+    color: var(--ui-accent);
+}
+
+.deleteSelected:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.title {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--ui-text-muted);
+}
+
+.titleGroup {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--ui-surface);
+    border-top: solid 1px var(--content-evidence-header-border);
+}
+
+.toggleAll {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--ui-accent);
+    text-transform: lowercase;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.toggleAll:hover {
+    text-decoration: underline;
+}
+
+/* Icon glyph button (display toggle, include-full-source toggle). Sized to hold
+   a 13px lucide SVG; color driven, like the text glyph it replaced. */
+.displayToggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ui-text-subtle);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.15s;
+}
+
+.displayToggle:hover {
+    color: var(--ui-accent);
+}
+
+.positiveToggleIcon {
+    color: var(--ui-accent);
+}
+
+/* Right-side header cluster: include-full-source toggle + Exclude/Include all. */
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chipList {
+    flex: 1;
+    min-height: 0;
+    padding: 6px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.empty {
+    font-family: var(--font-sans);
+    color: var(--ui-border-strong);
+    align-self: center;
+    margin-top: 16px;
+}
+
+.sourceGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.chip {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--ui-border-strong);
+    background: var(--ui-surface-raised);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.15s, opacity 0.15s;
+}
+
+.chip[data-included="false"] {
+    opacity: 0.45;
+}
+
+.chip[data-included="true"] {
+    background: var(--content-evidence-source-background);
+    border: solid 1px var(--content-evidence-source-border);
+}
+
+.chip[data-type="segment"][data-included="true"] {
+    background: var(--content-evidence-annotation-background);
+    border: solid 1px var(--content-evidence-annotation-border);
+}
+
+.chipLabel {
+    flex: 1;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 6px 8px;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 0.95em;
+    color: var(--content-evidence-source-text);
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.chip[data-type="segment"][data-included="true"] .chipLabel {
+    color: var(--content-evidence-annotation-text);
+}
+
+.chipLabel:hover {
+    color: var(--ui-accent-hover);
+    text-decoration: underline;
+}
+
+/* Marks a chip whose annotation carries a richer payload for the agent (e.g. a diff's
+   before/after). A small uppercase tag reading the payload's kind. */
+.chipBadge {
+    flex-shrink: 0;
+    align-self: center;
+    padding: 1px 5px;
+    margin-right: 2px;
+    border-radius: 3px;
+    background: var(--ui-accent-soft);
+    color: var(--ui-accent-hover);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* Squircle toggle button — a real click target, not a bare glyph. Hollow
+   outline when excluded, fills solid with the row's state color when included. */
+.chipToggle {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    margin: 0 7px;
+    border-radius: 4px;
+    border: 1.5px solid var(--ui-border-strong);
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.chip[data-included="true"] .chipToggle {
+    border-color: var(--content-evidence-source-border);
+    background: var(--content-evidence-source-border);
+}
+
+/* The filled square is a small solid mass, so it sits darker than the border —
+   at 14px a border-weight green reads as a bright chip against the muted fill. */
+.chip[data-type="segment"][data-included="true"] .chipToggle {
+    border-color: var(--content-evidence-annotation-toggle);
+    background: var(--content-evidence-annotation-toggle);
+}
+
+.chipToggle:hover {
+    border-color: var(--ui-text);
+}
+
+.chip[data-included="false"] .chipToggle:hover {
+    border-color: var(--content-evidence-source-border);
+    background-color: var(--content-evidence-source-border);
+}
+
+/* Lucide "notebook-text" — marks a row as a source's whole-file header. */
+.sourceIcon {
+    flex-shrink: 0;
+    margin-left: 8px;
+    color: var(--ui-text-subtle);
+}
+
+.sourceCount {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--ui-text-subtle);
+}
+
+.sourceBreak {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    margin: 8px 0;
+    flex-shrink: 0;
+}
+
+.sourceBreak span {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--ui-border-strong);
+}

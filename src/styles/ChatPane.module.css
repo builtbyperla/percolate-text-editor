@@ -1,0 +1,1060 @@
+
+.pane {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    background: var(--content-chat-background);
+    font-family: var(--font-sans);
+    overflow: hidden;
+}
+
+.chatScroll {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.errorBanner {
+    flex: none;
+    margin: 10px 12px 0;
+    padding: 8px 10px;
+    border: 1px solid color-mix(in srgb, var(--ui-danger) 35%, var(--ui-border));
+    border-radius: 6px;
+    color: var(--ui-danger);
+    background: var(--ui-danger-soft);
+    font-size: 11.5px;
+    line-height: 1.4;
+}
+
+.threadSpacer {
+    flex: none;
+    height: 196px;
+}
+
+.floating {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 16px;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+.floating > * {
+    pointer-events: auto;
+}
+
+.chatThread {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 16px 8px;
+}
+
+.chatEmpty {
+    min-height: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 24px 28px;
+    color: var(--ui-text-subtle);
+    font-size: 11.5px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.chatEmpty strong {
+    color: var(--ui-text-muted);
+    font-size: 12.5px;
+}
+
+.chatEmptyIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 3px;
+    border: 1px solid color-mix(in srgb, var(--ui-info) 25%, var(--ui-border));
+    border-radius: 10px;
+    color: var(--ui-info);
+    background: color-mix(in srgb, var(--ui-info) 6%, var(--ui-surface-raised));
+}
+
+.chatRow {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 3px 0;
+}
+
+/* Tool rows sit tight against their neighbors so a run of actions reads as one
+   contiguous stream, not spaced-out cards — no row padding of their own. */
+.chatRow[data-kind="tool"] {
+    padding: 0;
+}
+
+.roleLabel {
+    font-size: 0.9em;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--content-chat-accent);
+    margin-bottom: 5px;
+}
+
+.chatRow[data-role="user"] {
+    background: color-mix(in srgb, var(--content-chat-accent) 8%, transparent);
+    border-radius: 6px;
+    padding: 8px 10px;
+}
+
+.chatRow[data-origin="system"] {
+    padding: 8px 10px;
+    border: 1px solid var(--ui-border);
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--ui-info) 5%, var(--ui-surface-raised));
+    color: var(--ui-text-muted);
+    font-size: 0.92em;
+}
+
+.chatRow[data-origin="system"] .chatBubble {
+    color: var(--ui-text-muted);
+}
+
+.forkFromButton {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    color: var(--ui-text-muted);
+    background: color-mix(in srgb, var(--ui-surface-raised) 92%, transparent);
+    opacity: 0;
+    cursor: pointer;
+}
+
+.chatRow:hover .forkFromButton,
+.forkFromButton:focus-visible {
+    opacity: 1;
+}
+
+.forkFromButton:hover {
+    color: var(--content-chat-accent);
+    border-color: var(--ui-border);
+}
+
+.forkFromButton:focus-visible {
+    outline: 2px solid var(--content-chat-accent);
+    outline-offset: 1px;
+}
+
+.turnDivider {
+    border-top: 1px solid var(--ui-border);
+    margin: 13px 0;
+}
+
+/* Chevron marker — muted navy, shared by the assistant eyebrow and every tool
+   row header, so it reads as one consistent "action/turn" glyph. */
+.toolChevron {
+    display: inline-flex;
+    align-items: center;
+    color: var(--ui-info);
+    flex: none;
+}
+
+.chatBubble {
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: var(--ui-text);
+}
+
+.contextList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 9px;
+}
+
+.contextStrip {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) 24px;
+    align-items: stretch;
+    width: 100%;
+    min-height: 30px;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--content-evidence-annotation-border);
+    border-radius: 4px;
+    color: var(--content-evidence-annotation-text);
+    background: var(--content-evidence-annotation-background);
+    text-align: left;
+    cursor: pointer;
+}
+
+.contextEntry[data-scope="file"] .contextStrip {
+    border-color: var(--content-evidence-source-border);
+    color: var(--content-evidence-source-text);
+    background: var(--content-evidence-source-background);
+}
+
+.contextStrip:hover,
+.contextStrip[aria-expanded="true"] {
+    border-color: var(--content-evidence-annotation-toggle);
+}
+
+.contextEntry[data-scope="file"] .contextStrip:hover,
+.contextEntry[data-scope="file"] .contextStrip[aria-expanded="true"] {
+    border-color: var(--content-evidence-source-border);
+}
+
+.contextStrip:focus-visible { outline: 2px solid var(--content-chat-accent); outline-offset: 2px; }
+.contextStrip[aria-expanded="true"] { box-shadow: 0 0 0 1px color-mix(in srgb, var(--content-annotation-accent) 18%, transparent); }
+.contextKind { display: inline-flex; align-items: center; padding: 0 8px; border-right: 1px solid color-mix(in srgb, currentColor 42%, var(--ui-border)); font-size: 11px; font-weight: 600; }
+.contextSnippet { min-width: 0; align-self: center; overflow: hidden; padding: 0 8px; color: var(--ui-text-muted); font: 11px var(--font-mono); text-overflow: ellipsis; white-space: nowrap; }
+.contextStrip[data-has-note="false"] .contextSnippet { grid-column: 2 / 4; }
+.contextNoteSnippet { grid-column: 3; min-width: 0; overflow: hidden; padding: 0 8px; border-left: 1px solid var(--ui-border); color: var(--ui-text-muted); background: color-mix(in srgb, var(--ui-text) 3%, var(--ui-surface-raised)); font-size: 11px; font-style: italic; line-height: 28px; text-overflow: ellipsis; white-space: nowrap; }
+.contextCaret { grid-column: 4; align-self: center; justify-self: center; color: var(--ui-text-subtle); transition: transform .15s; }
+.contextStrip[aria-expanded="true"] .contextCaret { transform: rotate(180deg); }
+
+.contextPeek { margin-top: 6px; overflow: hidden; border: 1px solid var(--content-evidence-annotation-border); border-radius: 4px; background: var(--content-editor-background); box-shadow: 0 1px 2px var(--ui-shadow); }
+.contextEntry[data-scope="file"] .contextPeek { border-color: var(--content-evidence-source-border); }
+.contextPeekHeader { display: flex; align-items: center; gap: 7px; min-height: 30px; padding: 0 8px; border-bottom: 1px solid var(--content-annotation-tab-header-area-border); color: var(--content-annotation-tab-border); background: var(--content-annotation-tab-background); font-size: 11px; font-weight: 500; }
+.contextEntry[data-scope="file"] .contextPeekHeader { border-bottom-color: var(--content-tab-header-area-border); color: var(--content-tab-text); background: var(--content-tab-background); }
+.contextPeekHeader code { min-width: 0; overflow: hidden; color: var(--ui-text-muted); font: 11px var(--font-mono); text-overflow: ellipsis; white-space: nowrap; }
+.contextLocation { flex: none; margin-left: auto; color: var(--ui-text-subtle); font: 11px var(--font-mono); white-space: nowrap; }
+.contextJump { display: inline-grid; flex: none; width: 20px; height: 20px; padding: 0; place-items: center; border: 0; border-radius: 4px; color: var(--ui-text-subtle); background: transparent; opacity: .75; }
+.contextPeekHeader[data-presentation="text"] .contextJump { margin-left: auto; }
+.contextTextPreview { max-height: 220px; padding: 8px 10px; overflow: auto; color: var(--ui-text); background: var(--content-editor-background); font: 11px/1.55 var(--font-sans); white-space: pre-wrap; overflow-wrap: anywhere; }
+.contextCodeLines { max-height: 220px; padding: 7px 0; overflow: auto; background: var(--content-editor-background); font: 11px/1.55 var(--font-mono); }
+.contextCodeLine { display: grid; grid-template-columns: 34px minmax(0, 1fr); min-width: max-content; min-height: 17px; }
+.contextLineNumber { padding-right: 8px; color: var(--ui-text-subtle); text-align: right; user-select: none; }
+.contextLineText { padding: 0 9px; color: var(--ui-text-muted); white-space: pre; }
+.contextCodeLineSelected .contextLineText { padding-left: 7px; border-left: 2px solid var(--content-annotation-tab-border); color: var(--ui-text); background: var(--content-annotation-highlight); }
+.contextEntry[data-scope="file"] .contextCodeLineSelected .contextLineText { border-left-color: var(--content-evidence-source-border); background: var(--content-evidence-source-background); }
+.contextPeekNote { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 5px; padding: 7px 9px; border-top: 1px solid var(--ui-border); color: var(--ui-text-muted); background: var(--ui-surface-hover); font-size: 11px; font-style: italic; }
+.contextPeekNote span:first-child { color: var(--content-evidence-annotation-text); font-style: normal; }
+
+.diffEntry { margin: 0 0 6px; }
+.diffEntry .contextStrip { grid-template-columns: auto minmax(0, 1fr) 24px; border-color: var(--ui-border-strong); color: var(--ui-info); background: color-mix(in srgb, var(--ui-info) 6%, var(--ui-surface-raised)); }
+.diffEntry .contextStrip:hover,
+.diffEntry .contextStrip[aria-expanded="true"] { border-color: var(--ui-info); }
+.diffEntry .contextCaret { grid-column: 3; }
+.diffPeek { max-height: 280px; margin: 6px 0 0; padding: 8px 10px; overflow: auto; border: 1px solid var(--ui-border-strong); border-radius: 4px; color: var(--ui-text); background: var(--content-editor-background); font: 10.5px/1.5 var(--font-mono); white-space: pre; }
+
+.toolCard {
+    font-size: inherit;
+    padding: 3px 0;
+}
+
+/* One-line header: chevron, name, subject, and a muted status word. */
+.toolHeader {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--ui-text-muted);
+}
+
+.toolName {
+    font-weight: 600;
+}
+
+.toolSubject {
+    color: var(--ui-text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.toolStatus {
+    margin-left: auto;
+    flex: none;
+    color: var(--ui-text-subtle);
+}
+
+.toolCard[data-status="running"] .toolStatus {
+    animation: pulse 1.2s ease-in-out infinite;
+}
+
+.toolCard[data-status="error"] .toolStatus {
+    color: var(--ui-danger);
+}
+
+.toolBody {
+    margin: 4px 0 0 19px;
+    padding: 6px 8px;
+    line-height: 1.5;
+    color: var(--ui-text-muted);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background-color: color-mix(in srgb, var(--ui-text) 5%, transparent);
+    border-radius: 4px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.fileEditPreview { margin: 6px 0 2px 19px; border: 1px solid var(--ui-border); border-radius: 5px; overflow: hidden; }
+.fileEditHeader { display: flex; align-items: center; gap: 7px; padding: 4px 7px; color: var(--ui-text-subtle); font-size: 10.5px; }
+.fileEditHeader button { display: inline-flex; align-items: center; gap: 4px; padding: 2px 5px; border: 0; border-radius: 3px; background: transparent; color: var(--ui-text-muted); font: 500 10.5px var(--font-sans); cursor: pointer; }
+.fileEditHeader button:last-child { margin-left: auto; }
+.fileEditHeader button:hover { background: var(--ui-surface-hover); color: var(--ui-text); }
+.fileEditPatch { max-height: 230px; margin: 0; padding: 7px 9px; overflow: auto; border-top: 1px solid var(--ui-border); background: var(--content-editor-background); color: var(--ui-text); font: 10.5px/1.45 var(--font-mono); white-space: pre; }
+.fileEditLoading, .fileEditError { display: block; padding: 7px 9px; color: var(--ui-text-subtle); font-size: 10.5px; }
+.fileEditError { color: var(--ui-danger); }
+
+.approvalPanel {
+    margin: 7px 0 2px 19px;
+    padding: 8px;
+    border: 1px solid color-mix(in srgb, var(--ui-warning) 28%, var(--ui-border));
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--ui-warning) 5%, var(--ui-surface-raised));
+    font-size: inherit;
+}
+
+.approvalLabel {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--ui-text-muted);
+    font-size: inherit;
+    font-weight: 600;
+}
+
+.approvalCountdown {
+    color: var(--ui-warning);
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+}
+
+.toolControls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.toolControls button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 25px;
+    border: 1px solid var(--ui-border);
+    border-radius: 6px;
+    padding: 0 8px;
+    color: var(--ui-text-muted);
+    background: var(--ui-surface-raised);
+    font-family: var(--font-sans);
+    font-size: calc(var(--sans-default-size) - 1px);
+    font-weight: 500;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.toolControls button:hover {
+    border-color: var(--ui-border-strong);
+    color: var(--ui-text);
+    background: var(--ui-surface-hover);
+}
+
+.toolControls .controlReject:hover {
+    border-color: color-mix(in srgb, var(--ui-danger) 35%, var(--ui-border));
+    color: var(--ui-danger);
+    background: var(--ui-danger-soft);
+}
+
+.toolControls .controlApprove {
+    border-color: var(--content-chat-accent);
+    color: var(--content-chat-on-accent);
+    background: var(--content-chat-accent);
+}
+
+.toolControls .controlApprove:hover {
+    border-color: var(--content-chat-accent-hover);
+    color: var(--content-chat-on-accent);
+    background: var(--content-chat-accent-hover);
+}
+
+.toolControls .controlSelected {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--content-chat-accent) 28%, transparent);
+}
+
+.questionPanel {
+    margin: 7px 0 3px 19px;
+    padding: 10px;
+    border: 1px solid color-mix(in srgb, var(--ui-info) 24%, var(--ui-border));
+    border-radius: 6px;
+    background: var(--ui-surface-raised);
+}
+
+.questionEyebrow {
+    margin-bottom: 6px;
+    color: var(--ui-info);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.questionTitle {
+    color: var(--ui-text);
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+.questionDetail {
+    margin-top: 4px;
+    color: var(--ui-text-muted);
+    font-size: 10.5px;
+    line-height: 1.45;
+}
+
+.questionOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.questionOption {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 8px;
+    border: 1px solid var(--ui-border);
+    border-radius: 5px;
+    color: var(--ui-text);
+    background: var(--ui-surface-raised);
+    font: 10.5px/1.35 var(--font-sans);
+    text-align: left;
+    cursor: pointer;
+}
+
+.questionOption:hover { border-color: var(--ui-border-strong); background: var(--ui-surface-hover); }
+.questionOptionSelected { border-color: var(--content-chat-accent); background: color-mix(in srgb, var(--content-chat-accent) 7%, var(--ui-surface-raised)); }
+.questionOption strong { display: block; font-weight: 650; }
+.questionOption small { display: block; margin-top: 2px; color: var(--ui-text-muted); font-size: 10px; }
+.questionRadio { flex: none; width: 13px; height: 13px; margin: 1px 0 0; accent-color: var(--content-chat-accent); }
+
+.questionText {
+    display: block;
+    width: 100%;
+    min-height: 36px;
+    margin-top: 9px;
+    padding: 7px 8px;
+    border: 1px solid var(--ui-border);
+    border-radius: 5px;
+    color: var(--ui-text);
+    background: var(--ui-surface-raised);
+    font: 10.5px/1.4 var(--font-sans);
+    resize: vertical;
+}
+
+.questionText:focus-visible, .questionOption:focus-within, .questionActions button:focus-visible {
+    outline: 2px solid var(--content-chat-accent);
+    outline-offset: 2px;
+}
+
+.questionActions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 9px;
+}
+
+.questionActions span { margin-right: auto; color: var(--ui-text-subtle); font-size: 10px; }
+.questionActions button { display: inline-flex; align-items: center; gap: 4px; min-height: 25px; padding: 0 8px; border: 1px solid var(--ui-border); border-radius: 5px; color: var(--ui-text-muted); background: var(--ui-surface-raised); font: 600 10.5px var(--font-sans); cursor: pointer; }
+.questionActions button:hover { background: var(--ui-surface-hover); }
+.questionActions .questionSubmit { border-color: var(--content-chat-accent); color: var(--content-chat-on-accent); background: var(--content-chat-accent); }
+.questionActions .questionSubmit:hover { background: var(--content-chat-accent-hover); }
+.questionActions button:disabled { opacity: .5; cursor: default; }
+.questionResolved { margin-top: 8px; padding: 7px 8px; border-radius: 5px; color: var(--ui-text-muted); background: color-mix(in srgb, var(--ui-text) 5%, transparent); font-size: 10.5px; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.undoPanel {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin: 6px 0 2px 19px;
+    color: var(--ui-text-subtle);
+    font-size: 10.5px;
+}
+
+.undoPanel button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 25px;
+    padding: 0 8px;
+    color: var(--ui-text-muted);
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border);
+    border-radius: 5px;
+    cursor: pointer;
+    font: 500 10.5px/1 var(--font-sans);
+}
+
+.undoPanel button:hover { color: var(--ui-text); border-color: var(--content-chat-accent); }
+
+.turnProceed {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 10px 0 2px 19px;
+    padding-top: 9px;
+    border-top: 1px solid var(--ui-border);
+    color: var(--ui-text-subtle);
+    font-size: 10.5px;
+}
+
+.turnProceed button {
+    height: 27px;
+    padding: 0 10px;
+    border: 1px solid var(--content-chat-accent);
+    border-radius: 5px;
+    color: var(--content-chat-on-accent);
+    background: var(--content-chat-accent);
+    font: 600 10.5px/1 var(--font-sans);
+    cursor: pointer;
+}
+
+.turnProceed button:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+}
+
+/* Streaming cursor on the tail assistant bubble while a reply arrives. */
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 12px;
+    background: var(--ui-text-muted);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.responseBox {
+    display: flex;
+    flex-direction: column;
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border);
+    border-radius: 7px;
+    overflow: visible;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.hiddenFileInput { display: none; }
+
+.attachmentList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 4px 8px 8px;
+}
+
+.attachmentPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+    max-width: 220px;
+    padding: 3px 7px;
+    border: 1px solid var(--ui-border);
+    border-radius: 999px;
+    background: var(--ui-surface-raised-frame);
+    color: var(--ui-text);
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.attachmentKind { color: var(--ui-text-muted); font-weight: 600; flex: none; }
+.attachmentName { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.attachmentPill button {
+    display: inline-flex;
+    border: 0;
+    background: transparent;
+    color: var(--ui-text-muted);
+    cursor: pointer;
+    padding: 0;
+}
+
+.responseBox:focus-within {
+    border-color: var(--content-chat-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--content-chat-accent) 12%, transparent);
+}
+
+/* Collapsed: hide without unmounting so the textarea keeps its draft */
+.hidden {
+    display: none;
+}
+
+/* Options bar — thin strip above the input for context/mode toggles */
+.optionsBar {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 6px;
+    background: var(--ui-surface-raised-frame);
+    border-bottom: 1px solid var(--ui-border);
+    border-radius: 6px 6px 0 0;
+}
+
+.optionsSpacer {
+    flex: 1;
+}
+
+.menuAnchor {
+    position: relative;
+}
+
+.modeTrigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 26px;
+    min-width: 76px;
+    padding: 0 9px;
+    border: 1px solid var(--ui-border);
+    border-radius: 6px;
+    color: var(--ui-text-muted);
+    background: var(--ui-surface-raised);
+    font: 600 10.5px/1 var(--font-sans);
+    cursor: pointer;
+}
+
+.modeTrigger:hover,
+.modeTrigger[aria-expanded="true"] {
+    border-color: color-mix(in srgb, var(--content-chat-accent) 45%, var(--ui-border));
+    color: var(--content-chat-accent);
+    background: var(--content-chat-accent-soft);
+}
+
+.modeMenu {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 7px);
+    z-index: 30;
+    width: 224px;
+    padding: 5px;
+    border: 1px solid var(--ui-border);
+    border-radius: 6px;
+    background: var(--ui-surface-raised);
+    box-shadow: 0 10px 30px var(--ui-shadow);
+    animation: mode-menu-in 0.12s ease-out;
+}
+
+@keyframes mode-menu-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modeMenuLabel {
+    padding: 6px 8px 5px;
+    color: var(--ui-text-subtle);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.modeMenuItem {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 6px;
+    width: 100%;
+    padding: 7px 8px;
+    border: 0;
+    border-radius: 6px;
+    color: var(--ui-text);
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+}
+
+.modeMenuItem:hover {
+    background: var(--ui-surface-hover);
+}
+
+.modeMenuItemActive {
+    background: var(--content-chat-accent-soft);
+}
+
+.modeMenuCheck {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+}
+
+.modeMenuItemActive .modeMenuCheck {
+    color: var(--content-chat-accent);
+}
+
+.modeMenuCopy {
+    min-width: 0;
+}
+
+.modeMenuTitle {
+    display: block;
+    font-size: 11px;
+    font-weight: 650;
+    line-height: 15px;
+}
+
+.modeMenuDescription {
+    display: block;
+    margin-top: 1px;
+    color: var(--ui-text-subtle);
+    font-size: 9.5px;
+    line-height: 1.35;
+}
+
+.agentModeMenu {
+    width: 232px;
+}
+
+/* Text input area */
+.inputArea {
+    display: flex;
+    padding: 8px 10px;
+}
+
+.textarea {
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ui-text);
+    min-height: 48px;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.textarea::placeholder {
+    color: var(--ui-text-subtle);
+}
+
+/* Bottom toolbar — minify / stop / send */
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 6px;
+    border-top: 1px solid var(--ui-border);
+    background: var(--ui-surface-raised-frame);
+    border-radius: 0 0 6px 6px;
+}
+
+.toolbarSpacer {
+    flex: 1;
+}
+
+/* Generic icon button */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 26px;
+    min-width: 26px;
+    padding: 0 6px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--ui-text-muted);
+    font-size: 11.5px;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+}
+
+.button:hover {
+    background: color-mix(in srgb, var(--ui-text) 6%, transparent);
+    color: var(--ui-text);
+}
+
+.button:active {
+    background: color-mix(in srgb, var(--ui-text) 12%, transparent);
+}
+
+/* Expanded composer send action */
+.sendButton {
+    background: var(--content-chat-accent);
+    color: var(--content-chat-on-accent);
+    padding: 0 10px 0 10px;
+}
+
+.sendButton:hover {
+    background: var(--content-chat-accent-hover);
+    color: var(--content-chat-on-accent);
+}
+
+.sendButton:active {
+    background: var(--content-chat-accent-hover);
+}
+
+.sendGroup {
+    display: flex;
+    align-items: center;
+}
+
+.messageModeButton {
+    min-width: 20px;
+    width: 20px;
+    padding: 0;
+    border-radius: 6px 0 0 6px;
+    border-right: 1px solid color-mix(in srgb, var(--content-chat-on-accent) 30%, transparent);
+}
+
+.messageModeButton:hover,
+.messageModeButton[aria-expanded="true"] {
+    border-right-color: color-mix(in srgb, var(--content-chat-on-accent) 38%, transparent);
+    color: var(--content-chat-on-accent);
+    background: var(--content-chat-accent-hover);
+}
+
+.messageModeMenu {
+    width: 190px;
+}
+
+.modeInitial {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    color: var(--ui-text-muted);
+    background: var(--ui-surface-raised-frame);
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.modeMenuItemActive .modeInitial {
+    color: var(--content-chat-accent);
+    background: var(--ui-surface-raised);
+}
+
+.sendButtonAttached {
+    border-radius: 0 6px 6px 0;
+}
+
+.button:disabled {
+    opacity: 0.45;
+    cursor: default;
+    background: transparent;
+}
+
+.sendButton:disabled {
+    background: var(--content-chat-accent);
+}
+
+.buttonLabel {
+    white-space: nowrap;
+}
+
+/* Status button — active tint + count badge when there's something to show */
+.buttonActive {
+    color: var(--content-chat-accent);
+}
+
+.buttonActive:hover {
+    color: var(--content-chat-accent-hover);
+    background: color-mix(in srgb, var(--content-chat-accent) 8%, transparent);
+}
+
+.statusBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 15px;
+    height: 15px;
+    padding: 0 4px;
+    border-radius: 8px;
+    background: var(--content-chat-accent);
+    color: var(--content-chat-on-accent);
+    font-size: 10px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Minified box — collapsed response showing a toolbar + un-minify affordance */
+.minifiedBox {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px 6px;
+    background: var(--ui-surface-hover);
+    border: 1px solid var(--ui-border);
+    border-radius: 8px;
+    transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+}
+
+.minifiedBox:hover {
+    background: color-mix(in srgb, var(--ui-surface-raised) 88%, white);
+}
+
+.minifiedBox:focus-within {
+    background: color-mix(in srgb, var(--ui-surface-raised) 92%, white);
+    border-color: color-mix(in srgb, var(--content-chat-accent) 45%, var(--ui-border));
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--content-chat-accent) 8%, transparent);
+}
+
+.minifiedInput {
+    flex: 1;
+    min-width: 0;
+    height: 26px;
+    box-sizing: border-box;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    color: var(--ui-text);
+    padding: 0 4px;
+}
+
+.minifiedInput::placeholder {
+    color: var(--ui-text-muted);
+}
+
+/* Turn-scoped pending tasks, preserving the original compact TodoBox shape. */
+.todoBox {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    background: var(--ui-surface-raised);
+    border: 1px solid var(--ui-border);
+    border-radius: 8px;
+}
+
+/* A single row: a count, a label, and left/right pager buttons on the right.
+   Shared by the actions row and the artifacts viewer. */
+.pagerRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pagerCount {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 8px;
+    background: var(--content-chat-accent-soft);
+    color: var(--content-chat-accent);
+    font-size: 11px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.pagerLabel {
+    font-size: 12px;
+    color: var(--ui-text);
+}
+
+.pagerControls {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: auto;
+}
+
+.pagerPosition {
+    font-size: 11px;
+    color: var(--ui-text-subtle);
+    font-variant-numeric: tabular-nums;
+    padding: 0 2px;
+    min-width: 34px;
+    text-align: center;
+}
+
+.pendingTaskSummary {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 6px;
+    padding-top: 7px;
+    border-top: 1px solid color-mix(in srgb, var(--ui-border) 72%, transparent);
+    font-size: 10.5px;
+}
+
+.pendingTaskName {
+    flex: none;
+    color: var(--ui-text-muted);
+    font-weight: 600;
+}
+
+.pendingTaskSubject {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    color: var(--ui-text-subtle);
+    font-family: var(--font-mono);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pendingTaskSummary button {
+    flex: none;
+    padding: 2px 3px;
+    border: 0;
+    color: var(--content-chat-accent);
+    background: transparent;
+    font: 600 10px/1.2 var(--font-sans);
+    cursor: pointer;
+}
+
+.pendingTaskSummary button:hover {
+    color: var(--content-chat-accent-hover);
+    text-decoration: underline;
+}

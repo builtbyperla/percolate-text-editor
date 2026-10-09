@@ -1,0 +1,71 @@
+[
+  {
+    "tools": [
+      {
+        "type": "write_file",
+        "subject": "tests/fixtures/agent-file-edit-preview.txt",
+        "output": "The reviewed file edit was applied.",
+        "requiresApproval": true,
+        "input": {
+          "path": "tests/fixtures/agent-file-edit-preview.txt",
+          "content": "Alpha\nBeta (agent proposal)\nGamma\n"
+        }
+      }
+    ],
+    "response": "I proposed a change to the sample text file. Review the edit here or open its diff before approving, rejecting, or skipping it."
+  },
+  {
+    "tools": [
+      { "type": "read", "subject": "src/trace.py", "output": "Loaded 84 lines from src/trace.py", "requiresApproval": false },
+      { "type": "run", "subject": "pytest -q", "output": "collected 4 items\n\ntests/test_trace.py ....\n\n============ 4 passed in 0.42s ============", "requiresApproval": true }
+    ],
+    "response": "## Summary\n\nI can see the **annotated section**. What would you like to investigate further?"
+  },
+  {
+    "tools": [
+      { "type": "search", "subject": "ConnectionError", "output": "src/trace.py:41: raise ConnectionError(message)", "requiresApproval": false },
+      { "type": "run", "subject": "pytest -q", "output": "collected 4 items\n\ntests/test_trace.py ....\n\n============ 4 passed in 0.42s ============", "requiresApproval": true }
+    ],
+    "response": "## Anomaly detected\n\nBased on the context provided, this looks like an anomaly worth flagging. The pattern suggests an **upstream data issue**.\n\n- Retry observed at 09:15:03\n- Added ~4.8s of latency\n- Root cause: upstream `ConnectionError`"
+  },
+  {
+    "tools": [
+      { "type": "read", "subject": "logs/trace.log", "output": "ConnectionError at 09:15:03\nrecovered after 3 attempts", "requiresApproval": false },
+      { "type": "run", "subject": "pytest -q", "output": "collected 4 items\n\ntests/test_trace.py ....\n\n============ 4 passed in 0.42s ============", "requiresApproval": true }
+    ],
+    "response": "## Trace review\n\nThe trace spans here show a retry:\n\n```\nConnectionError at 09:15:03\nrecovered after 3 attempts\n```\n\nWorth monitoring."
+  },
+  {
+    "tools": [
+      { "type": "search", "subject": "task_id=t-881", "output": "logs/agent.log:18: task_id=t-881 status=success", "requiresApproval": false },
+      { "type": "run", "subject": "pytest -q", "output": "collected 4 items\n\ntests/test_trace.py ....\n\n============ 4 passed in 0.42s ============", "requiresApproval": true }
+    ],
+    "response": "## Cross-reference\n\nCross-referencing with the parent container, the agent completed successfully but the **tool call failure** is worth monitoring."
+  },
+  {
+    "tools": [
+      { "type": "read", "subject": "provided context", "output": "Context loaded from the current evidence selection.", "requiresApproval": false },
+      { "type": "run", "subject": "pytest -q", "output": "collected 4 items\n\ntests/test_trace.py ....\n\n============ 4 passed in 0.42s ============", "requiresApproval": true }
+    ],
+    "response": "Got it. I'll keep this context in mind as we continue the analysis."
+  },
+  {
+    "tools": [
+      {
+        "type": "ask_question",
+        "subject": "Log row detail",
+        "output": "",
+        "requiresApproval": true,
+        "input": {
+          "question": "How much detail should each log row show?",
+          "options": [
+            { "id": "compact", "label": "Compact" },
+            { "id": "balanced", "label": "Balanced", "detail": "Show the most useful fields." },
+            { "id": "detailed", "label": "Detailed", "detail": "Show all available metadata." }
+          ]
+        }
+      }
+    ],
+    "response": "Thanks. I'll use that preference for the log view."
+  }
+]
